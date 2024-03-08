@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import investpy
+import investiny
 
 Indices = {
     "S&P 500 Index": "^GSPC",
@@ -118,8 +119,5 @@ bond_name = "AAPL"
 from_date = "01/01/2023"  # Start of the period in dd/mm/yyyy format
 to_date = "31/12/2023"    # End of the period in dd/mm/yyyy format
 
-historical_data = investpy.get_stock_historical_data(stock='AAPL',
-                                        country='United States',
-                                        from_date='01/01/2010',
-                                        to_date='01/01/2020')
-print(historical_data)
+data = investiny.historical_data(investing_id=6408, from_date="09/01/2022", to_date="10/01/2022")
+print(data)
