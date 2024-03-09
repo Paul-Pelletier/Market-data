@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 tickerSymbol = '^GSPC'
 
+
 # Get data on this ticker
 tickerData = yf.Ticker(tickerSymbol)
 

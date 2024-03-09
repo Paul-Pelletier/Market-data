@@ -4,7 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 class TickerDataBase:
-
     def __init__(self) -> None:
         self.Indices = {
             "S&P 500 Index": "^GSPC",
@@ -18,7 +17,7 @@ class TickerDataBase:
             "Nikkei 225 Index (Japan)": "^N225",
             "Hang Seng Index (Hong Kong)": "^HSI",
             "Shanghai Composite Index (China)": "000001.SS",
-            "S&P/ASX 200 Index (Australia)": "^AXJO",
+            "S&P_ASX 200 Index (Australia)": "^AXJO",
             "Bovespa Index (Brazil)": "^BVSP",
             "TSX Composite Index (Canada)": "^GSPTSE"
         }
@@ -115,3 +114,10 @@ class TickerDataBase:
                 "30-Year": "JP30YT=RR"
             }
         }
+
+
+Indices = TickerDataBase().Indices
+for keys in Indices.keys():
+    marketData = yf.Ticker(Indices[keys])
+    dataFrame = marketData.history(period='1d', start='2010-1-1', end='2024-1-1')  # Example: Get data from 2010 to 2023)
+    dataFrame.to_csv(f'{str(keys)}.csv', sep = ";", index = False)
