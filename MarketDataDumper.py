@@ -46,11 +46,12 @@ class MarketDataRequestAndDump:
         for key in self.EconomicIndicators.keys():
             economicIndicator = self.EconomicIndicators[key]
             if key == "Treasury Yield":
-                for maturity in self.self.EconomicIndicators[key]["maturity"]:
-                    url = f"https://www.alphavantage.co/query?function={key}&interval={"daily"}&maturity={maturity}&apikey=" + self.apiKey
+                for maturity in self.EconomicIndicators[key]["maturity"]:
+                    url = f"https://www.alphavantage.co/query?function={economicIndicator}&interval={"daily"}&maturity={maturity}&apikey=" + self.apiKey
             else:
-                url = f"https://www.alphavantage.co/query?function={key}&interval={"daily"}&apikey=" + self.apiKey
+                url = f"https://www.alphavantage.co/query?function={economicIndicator}&interval={"daily"}&apikey=" + self.apiKey
             self.RequestAndDumpEconomicIndicatorData(key, url)
+
 
     def GetListingStatus(self : object) -> csv:
         url = "https://www.alphavantage.co/query?function=LISTING_STATUS&apikey=" + self.apiKey
