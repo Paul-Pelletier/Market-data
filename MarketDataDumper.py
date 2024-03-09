@@ -15,7 +15,12 @@ class MarketDataRequestAndDump:
         self.EconomicIndicators = {
                                     "Real GDP": {"function": "REAL_GDP", "interval": "quarterly"},
                                     "Real GDP per Capita": {"function": "REAL_GDP_PER_CAPITA"},
-                                    "Treasury Yield": {"function": "TREASURY_YIELD", "interval": "daily", "maturity": ["3month", "2year", "5year", "7year", "10year", "30year"]},
+                                    "Treasury Yield_3month": {"function": "TREASURY_YIELD", "interval": "daily", "maturity": "3month"},
+                                    "Treasury Yield_2year": {"function": "TREASURY_YIELD", "interval": "daily", "maturity": "2year"},
+                                    "Treasury Yield_5year": {"function": "TREASURY_YIELD", "interval": "daily", "maturity": "5year"},
+                                    "Treasury Yield_7year": {"function": "TREASURY_YIELD", "interval": "daily", "maturity": "7year"},
+                                    "Treasury Yield_10year": {"function": "TREASURY_YIELD", "interval": "daily", "maturity": "10year"},
+                                    "Treasury Yield_30year": {"function": "TREASURY_YIELD", "interval": "daily", "maturity": "30year"},
                                     "Federal Funds Rate": {"function": "FEDERAL_FUNDS_RATE", "interval": "daily"},
                                     "CPI": {"function": "CPI", "interval": "monthly"},
                                     "Inflation": {"function": "INFLATION", "interval": "monthly"},
@@ -24,9 +29,11 @@ class MarketDataRequestAndDump:
                                     "Unemployment Rate": {"function": "UNEMPLOYMENT", "interval": "monthly"},
                                     "Nonfarm Payroll": {"function": "NONFARM_PAYROLL", "interval": "monthly"}}
     
-    def RequestAndDumpEconomicIndicatorData(self : object, EconomicIndicator : str, url : str)->str:
+    def RequestAndDumpEconomicIndicatorData(self : object, EconomicIndicator : str, url : str, maturity : str)->str:
         response = requests.get(url)
         data = json.loads(response.text)
+        if EconomicIndicator == "TREASURY_YIELD":
+            EconomicIndicator = EconomicIndicator + f"_{maturity}"
         with open(f"./EconomicIndicatorsData/{EconomicIndicator}.json", 'w') as json_file:
             json.dump(data, json_file, indent=4)
         dataFrame = self.TransformJsonToPandasDataFrame(EconomicIndicator)
@@ -45,12 +52,13 @@ class MarketDataRequestAndDump:
     def GetEconomicIndicatorsData(self : object) -> str:
         for key in self.EconomicIndicators.keys():
             economicIndicator = self.EconomicIndicators[key]["function"]
-            if economicIndicator == "Treasury_Yield":
-                for maturity in self.EconomicIndicators[key]["maturity"]:
-                    url = f"https://www.alphavantage.co/query?function={economicIndicator}&interval={"daily"}&maturity={maturity}&apikey=" + self.apiKey
+            maturity = ""
+            if key[0:14] == "Treasury Yield":
+                maturity = self.EconomicIndicators[key]["maturity"]
+                url = f"https://www.alphavantage.co/query?function={economicIndicator}&interval={"daily"}&maturity={maturity}&apikey=" + self.apiKey
             else:
                 url = f"https://www.alphavantage.co/query?function={economicIndicator}&interval={"daily"}&apikey=" + self.apiKey
-            self.RequestAndDumpEconomicIndicatorData(economicIndicator, url)
+            self.RequestAndDumpEconomicIndicatorData(economicIndicator, url, maturity)
 
 
     def GetListingStatus(self : object) -> csv:
