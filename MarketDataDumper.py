@@ -4,9 +4,9 @@ from io import StringIO
 import json
 import pandas as pd
 
-class TickerDataBase:
-    def __init__(self) -> None:
-        self.apiKey = "EKZRGALCGSWPSD61"
+class MarketDataRequestAndDump:
+    def __init__(self : object, apiKey : str) -> None:
+        self.apiKey = apiKey
         self.StockMarket = None
         self.CommoditiesMarket = None
         self.CryptoMarket = None
@@ -25,8 +25,6 @@ class TickerDataBase:
     def RequestAndDumpData(self : object, EconomicIndicator : str, url : str)->str:
         response = requests.get(url)
         data = json.loads(response.text)
-        with open(f"{EconomicIndicator}.json", 'w') as json_file:
-            json.dump(data, json_file, indent=4)
         dataFrame = self.TransformJsonToPandasDataFrame(EconomicIndicator)
         dataFrame.to_csv(f"{EconomicIndicator}.csv", sep = ";", index = False, header = True)
         print("Done")
@@ -36,8 +34,8 @@ class TickerDataBase:
         with open(f'{EconomicIndicator}.json') as file:
             json_data = json.load(file)
         dataFrame = pd.DataFrame(json_data["data"])
-        dataFrame['date'] = pd.to_datetime(dataFrame["date"])
-        dataFrame['value'] = pd.to_numeric(dataFrame['value'], errors = "coerce")
+        dataFrame["date"] = pd.to_datetime(dataFrame["date"])
+        dataFrame["value"] = pd.to_numeric(dataFrame["value"], errors = "coerce")
         return dataFrame
     
     def GetEconomicIndicatorsData(self) -> str:
