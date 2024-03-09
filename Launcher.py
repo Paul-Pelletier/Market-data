@@ -1,4 +1,5 @@
+"""Launcher for fetching market data from AlphaVantage"""
 from MarketDataDumper import MarketDataRequestAndDump
 
-api_key = "IWGY89WST51M75RS"
-a = MarketDataRequestAndDump(api_key).GetEconomicIndicatorsData()
+ApiKey = "IWGY89WST51M75RS"
+MarketDataRequestAndDump(ApiKey).GetEconomicIndicatorsData()

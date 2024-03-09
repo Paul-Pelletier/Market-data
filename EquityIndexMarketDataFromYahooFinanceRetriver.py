@@ -1,7 +1,8 @@
-
+"""Module providing a database class and extracting market quotes from Yahoo Finance."""
 import yfinance as yf
 
 class TickerDataBase:
+    """Class representing a major indices ticker data base"""
     def __init__(self) -> None:
         self.Indices = {
             "S&P 500 Index": "^GSPC",
@@ -21,7 +22,9 @@ class TickerDataBase:
         }
 
 Indices = TickerDataBase().Indices
-for keys in Indices.keys():
-    marketData = yf.Ticker(Indices[keys])
-    dataFrame = marketData.history(period='1d', start='2010-1-1', end='2024-1-1')  # Example: Get data from 2010 to 2023)
-    dataFrame.to_csv(f'{"./EquityIndexData/"+str(keys)}.csv', sep = ";", index = False)
+for name, ticker in Indices.items():
+    marketData = yf.Ticker(ticker)
+    dataFrame = marketData.history(period='1d',
+                                   start='2010-1-1',
+                                   end='2024-1-1')  # Example: Get data from 2010 to 2023)
+    dataFrame.to_csv(f'{"./EquityIndexData/"+str(name)}.csv', sep = ";", index = False)

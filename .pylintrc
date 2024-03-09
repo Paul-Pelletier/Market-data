@@ -1,2 +1,29 @@
-"python.linting.enabled": true,
-"python.linting.pylintEnabled": true
+[MASTER]
+
+# Add "<path_to_your_project>" to the python-path if necessary,
+# e.g., if your modules are not in the root directory
+# python-path=path/to/your/project
+
+[FORMAT]
+
+# Class names - typically PascalCase
+class-rgx=[A-Z_][a-zA-Z0-9]+$
+
+# Function names - if you want PascalCase for functions as well (unusual in Python)
+function-rgx=[A-Z_][a-zA-Z0-9]+$
+
+# Method names - if you want PascalCase for methods as well (unusual in Python)
+method-rgx=[A-Z_][a-zA-Z0-9]+$
+
+# Variable names - if you want PascalCase for variables (unusual in Python)
+variable-rgx=[A-Z_][a-zA-Z0-9]+$
+
+# Constant names - typically UPPER_CASE, but you can adjust if you prefer PascalCase
+const-rgx=[A-Z_][a-zA-Z0-9]+$
+
+# Module names - typically UPPER_CASE, but you can adjust if you prefer PascalCase
+module-rgx=[A-Z_][a-zA-Z0-9]+$
+
+attr-rgx=[A-Z_][a-zA-Z0-9]+$
+
+argument-rgx=[A-Z_][a-zA-Z0-9]+$
