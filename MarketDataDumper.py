@@ -38,8 +38,7 @@ class MarketDataRequestAndDump:
             json.dump(data, json_file, indent=4)
         dataFrame = self.TransformJsonToPandasDataFrame(EconomicIndicator)
         dataFrame.to_csv(f"./EconomicIndicatorsData/{EconomicIndicator}.csv", sep = ";", index = False, header = True)
-        print("Done")
-        return "Done"
+        print(f"{EconomicIndicator} done")
     
     def TransformJsonToPandasDataFrame(self : object, EconomicIndicator : str) -> pd.DataFrame:
         with open(f'./EconomicIndicatorsData/{EconomicIndicator}.json') as file:
