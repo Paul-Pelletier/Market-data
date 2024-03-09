@@ -4,7 +4,7 @@ from io import StringIO
 import json
 import pandas as pd
 
-class MarketDataRequestAndDump:
+class marketDataRequestAndDump:
     #Gets data from AlphaVantage
     def __init__(self : object, apiKey : str) -> None:
         self.apiKey = apiKey
