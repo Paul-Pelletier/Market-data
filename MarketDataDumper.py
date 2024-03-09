@@ -47,7 +47,7 @@ class TickerDataBase:
                 for maturity in self.self.EconomicIndicators[key]["maturity"]:
                     url = f"https://www.alphavantage.co/query?function={key}&interval={"daily"}&maturity={maturity}&apikey=" + self.apiKey
             else:
-                url = f"https://www.alphavantage.co/query?function={key}&interval={"daily"}&&apikey=" + self.apiKey
+                url = f"https://www.alphavantage.co/query?function={key}&interval={"daily"}&apikey=" + self.apiKey
             self.RequestAndDumpData(economicIndicator, url)
 
             
