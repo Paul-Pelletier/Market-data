@@ -20,11 +20,10 @@ class TickerDataBase:
             "Bovespa Index (Brazil)": "^BVSP",
             "TSX Composite Index (Canada)": "^GSPTSE"
         }
-
 Indices = TickerDataBase().Indices
 for name, ticker in Indices.items():
     marketData = yf.Ticker(ticker)
     dataFrame = marketData.history(period='1d',
                                    start='2010-1-1',
                                    end='2024-1-1')  # Example: Get data from 2010 to 2023)
-    dataFrame.to_csv(f'{"./EquityIndexData/"+str(name)}.csv', sep = ";", index = False)
+    dataFrame.to_csv(f'{"./EquityIndexData/"+str(name)}.csv', sep = ";")
